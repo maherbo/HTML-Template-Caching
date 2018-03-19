@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+<head>
+<script>
+var HTMLTemplate = {
+	get: function(template){
+		var xhttp = new XMLHttpRequest();
+		xhttp.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				HTMLTemplate.set(this.responseText, template);
+			}
+		};
+		xhttp.open("GET", template.getAttribute('data-src'), true);
+		xhttp.send();
+	},
+
+	set: function(content, oldNode){
+		var template = document.createElement('template');
+		template.innerHTML = content;
+		
+		var docFrag = template.content.cloneNode(true);
+		
+		var parentNode = oldNode.parentNode;
+		parentNode.replaceChild(docFrag, oldNode);	
+	}
+}
+</script>
+</head>
+<body>
+<iframe onload="HTMLTemplate.get(this)" data-src="template1.html" id="template1"style="display:none;"></iframe>
+</body>
+</html>
