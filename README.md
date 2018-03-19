@@ -1,4 +1,13 @@
 # HTML-Template-Caching
+**UPDATE**:
+
+This branch updates the original version by replacing the template loading via an IFRAME call with an AJAX call instead.  The advantage being that it is much, much faster, as there are no DOM builds with each IFRAME loading (which could be detrimental when you have IFRAMEs within IFRAMEs).
+
+The IFRAME is still the «template» element, but it has no 'src' attribute.  The source file is stored in the 'data-src' attribute instead.  The - now empty - IFRAME is only necessary to fire up the 'onload' event.  Then, the template content is requested with an Ajax call, it is copied within a `<template>` element such that the document fragment is constructed, and the IFRAME template is replaced by the document fragment as before.
+
+***
+**ORIGINAL README**:
+
 A demo on how to use IFRAMEs to cache automatically HTML templates, while fetching only dynamic data from the server.
 
 This demo uses a very simple javascript function - setTemplate() - such that a server will only serve HTML templates or dynamic data, with separate requests.
